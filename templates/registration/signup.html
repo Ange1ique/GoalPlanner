@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title_block %}
+  GoalPlanner - Sign up
+{% endblock %}
+
+{% block body_block %}
+
+  <div class="jumbotron text-white bg-dark py-4 mb-1 mt-3">
+    <h1 class="display-4">Sign up</h1>
+    <p class="lead">Sign up to set and track your goals</p>
+  </div>
+
+  <div class="jumbotron border bg-light py-4 m-3 mb-4">
+    <form method="post">
+      {% csrf_token %}
+      {% for field in form %}
+        <div class="form-group">
+          {{ field.label_tag }}
+          {% render_field field class="form-control" %}
+          <!-- {% if field.help_text %}
+            <small class="form-text text-muted">{{ field.help_text }}</small>
+          {% endif %} -->
+          {% for error in field.errors %}
+            <small class="form-text text-danger">{{ error }}</small>
+          {% endfor %}
+        </div>
+      {% endfor %}
+      <button type="submit" class="btn btn-blue-do btn-block">Sign up</button>
+    </form>
+  </div>
+
+{% endblock %}

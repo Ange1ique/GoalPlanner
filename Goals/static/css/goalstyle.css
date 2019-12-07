@@ -1,0 +1,57 @@
+@media (max-width: 480px) {
+  .input-group {
+    display: block;
+  }
+  .input-group-append {
+    float: right;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.6rem;
+  }
+} */
+
+@media screen and (max-width: 768px) {
+    p, b, li, label {font-size: 0.85rem;}
+}
+
+.navbar-brand, .display-4, h3 {
+  font-family: 'Baloo Bhai';
+}
+
+ol, li {
+    margin-left: 9px;
+    padding: 0;
+}
+
+#page-container {
+  min-height: 100vh;
+  position: relative;
+  background-image: url("concrete2e.jpg");
+  background-size: auto;
+}
+
+#content-wrap {
+  padding-bottom: 58px;
+}
+
+.floatright1 {
+  float: right;
+}
+
+.floatright2 {
+  position: absolute;
+  right: 30px;
+}
+
+footer {
+  position: absolute;
+  width: 100%;
+  background-color: #dbdbdb;
+  padding: 20px 0;
+  text-align: center;
+  bottom: 0;
+  border-top: white;
+}

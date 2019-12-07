@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title_block %}
+  GoalPlanner - Login
+{% endblock %}
+
+{% block body_block %}
+
+  <div class="jumbotron text-white bg-dark py-4 mb-1 mt-3">
+    <h1 class="display-4">Login</h1>
+    <p class="lead">Login to set and track your goals</p>
+  </div>
+
+  <div class="jumbotron border bg-light py-4 m-3 mb-4">
+    {% if form.errors %}
+      <small class="form-text text-danger">Your username and password didn't match. Please try again.</small>
+    {% endif %}
+
+    {% if next %}
+      {% if user.is_authenticated %}
+        <small class="form-text text-danger">Your account doesn't have access to this page. To proceed,
+        please login with an account that has access.</small>
+      {% else %}
+        <small class="form-text text-danger">Please login to see this page.</small>
+      {% endif %}
+    {% endif %}
+
+    <form method="post" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.username.label_tag }}
+        {% render_field form.username class="form-control" %}
+      </div>
+      <div class="form-group">
+        {{ form.password.label_tag }}
+        {% render_field form.password class="form-control" %}
+      </div>
+      <button type="submit" class="btn btn-blue-do btn-block" value="login">Login</button>
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+
+    {# Assumes you setup the password_reset view in your URLconf #}
+    <!-- <p><a href="{% url 'password_reset' %}">Lost password?</a></p> -->
+  </div>
+
+{% endblock %}

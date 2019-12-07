@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title_block %}
+  GoalPlanner - Logged out
+{% endblock %}
+
+{% block body_block %}
+
+  <div class="jumbotron text-white bg-dark py-4 mb-1 mt-3">
+    <h1 class="display-4">Logged out</h1>
+    <p class="lead">Login again to set and track your goals</p>
+  </div>
+
+  <div class="jumbotron border bg-light py-4 m-3 mb-4">
+    <p>See you next time!</p>
+    <a href="{% url 'login'%}" class="btn btn-blue-do">Click here to login again</a>
+  </div>
+
+{% endblock %}

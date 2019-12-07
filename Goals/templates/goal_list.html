@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+{% load static %}
+{% load selectfilter %}
+
+{% for goal in allgoals %}
+  <div class="card m-3 rounded-lg" id="reloadgoal{{ goal.pk }}">
+    <!-- goal title with or without collapsable description -->
+    {% if goal.description %}
+      <button class="btn btn-link text-decoration-none text-dark px-4" type="button" data-toggle="collapse" data-target="#collapse1{{ goal.pk }}" aria-expanded="false" aria-controls="collapse1{{ goal.pk }}">
+        <h4 class="card-title font-weight-bold">
+          *** Goal {{ forloop.counter }}: {{ goal.goal_title }} ***
+          <span class="floatright1">...</span>
+        </h4>
+      </button>
+      <div class="card-body pt-0">
+        {% if goalprogress|select:goal.pk == 100 %}
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped text-dark bg-green-check w-100" id="progress{{ goal.pk }}" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+          </div>
+        {% else %}
+          <div class="progress">
+            <div class="progress-bar text-dark bg-warning w-{{ goalprogress|select:goal.pk }}" id="progress{{ goal.pk }}" role="progressbar" aria-valuenow="{{ goalprogress|select:goal.pk }}" aria-valuemin="0" aria-valuemax="100">{{ goalprogress|select:goal.pk }}%</div>
+          </div>
+        {% endif %}
+      </div>
+      <div id="collapse1{{ goal.pk }}" class="collapse">
+        <div class="card-body py-0">
+          <p class="card-subtitle mb-2 text-muted">
+            <b>Description:</b> {{ goal.description }}
+          </p>
+        </div>
+      </div>
+    {% else %}
+      <div class="text-center text-dark py-2">
+        <h4 class="card-title font-weight-bold">
+          *** Goal {{ forloop.counter }}: {{ goal.goal_title }} ***
+        </h4>
+      </div>
+      <div class="card-body pt-0">
+        {% if goalprogress|select:goal.pk == 100 %}
+          <div class="progress">
+            <div class="progress-bar progress-bar-striped text-dark bg-green-check w-100" id="progress{{ goal.pk }}" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+          </div>
+        {% else %}
+        <div class="progress">
+          <div class="progress-bar text-dark bg-warning w-{{ goalprogress|select:goal.pk }}" role="progressbar" aria-valuenow="{{ goalprogress|select:goal.pk }}" aria-valuemin="0" aria-valuemax="100">{{ goalprogress|select:goal.pk }}%</div>
+        </div>
+        {% endif %}
+      </div>
+    {% endif %}
+    <!-- subgoal title with or without collapsable activities -->
+    {% for subgoal in allsubgoals %}
+      {% if goal.pk == subgoal.goal.pk %}
+        <ol class="list-group list-group-flush">
+          <li class="list-group-item">
+            {% if subgoal.pk in actsubgoalid %}
+              <button class="btn btn-link text-decoration-none text-dark px-0" type="button" data-toggle="collapse" data-target="#collapse2{{ subgoal.pk }}" aria-expanded="false" aria-controls="collapse2{{ subgoal.pk }}">
+                <b>Subgoal:</b> {{ subgoal.subgoal_title }}
+                <span class="floatright2">...</span>
+              </button>
+              <div class="card-body py-1 px-0">
+                {% if goalprogress|select:goal.pk == 100 %}
+                  <div class="progress" id="progress{{ subgoal.pk }}">
+                    <div class="progress-bar text-dark bg-green-light w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
+                  </div>
+                {% else %}
+                  <div class="progress" id="progress{{ subgoal.pk }}">
+                    <div class="progress-bar text-dark bg-yellow-light w-{{ subgoalprogress|select:subgoal.pk }}" role="progressbar" aria-valuenow="{{ subgoalprogress|select:subgoal.pk }}" aria-valuemin="0" aria-valuemax="100">{{ subgoalprogress|select:subgoal.pk }}%</div>
+                  </div>
+                {% endif %}
+              </div>
+              <div id="collapse2{{ subgoal.pk }}" class="collapse">
+                  {% for activity in allactivities %}
+                    {% if subgoal.pk == activity.subgoal.pk %}
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item" id="check{{ activity.id }}">
+                          <b>Activity:</b> {{ activity.activity_title }}
+                            {% if activity.progress == 100 %}
+                              <button type="button" class="checkbutton btn btn-green-check btn-sm float-right" data-goalid="{{ goal.pk }}" data-subgoalid="{{ subgoal.pk }}" data-checkid="{{ activity.id }}" data-checkprogress="{{ activity.progress }}"><i class="fa fa-check-square-o mr-2"></i>Done</button>
+                            {% else %}
+                              <button type="button" class="checkbutton btn btn-blue-do btn-sm float-right" data-goalid="{{ goal.pk }}" data-subgoalid="{{ subgoal.pk }}" data-checkid="{{ activity.id }}" data-checkprogress="{{ activity.progress }}"><i class="fa fa-square-o mr-2"></i>To do</button>
+                            {% endif %}
+                        </li>
+                      </ul>
+                    {% endif %}
+                  {% endfor %}
+              </div>
+            {% else %}
+              <div class="text-dark px-0 py-2">
+                <b>Subgoal:</b> {{ subgoal.subgoal_title }}
+              </div>
+              <div class="card-body py-1 px-0">
+                  <div class="progress">
+                    <div class="progress-bar text-dark bg-yellow-light w-0" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
+                  </div>
+              </div>
+            {% endif %}
+          </li>
+        </ol>
+      {% endif %}
+    {% endfor %}
+    <div class="card-body py-2">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-3">
+            <button type="button" data-url="{% url 'goal_app:goal_update' goal.pk %}" class="btn btn-block btn-outline-blue-do py-1 my-1 js-update-goal"><i class="fa fa-pencil mr-2"></i>Edit goal</button>
+          </div>
+          <div class="col-sm-3">
+            <button type="button" data-url="{% url 'goal_app:goal_delete' goal.pk %}" class="btn btn-block btn-outline-blue-do py-1 my-1 js-delete-goal"><i class="fa fa-trash mr-2"></i>Delete goal</button>
+          </div>
+          <div class="col-sm-6">
+            <a href="{% url 'goal_app:goals_subgoals_update' goal.pk %}" class="btn btn-block btn-outline-blue-do py-1 my-1"><i class="fa fa-pencil mr-2"></i>Edit subgoals & activities</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% empty %}
+  <div class="jumbotron border bg-light py-4 m-3 mb-4">
+    <p>You haven't set any goals yet. Start by adding your first goal.</p>
+  </div>
+{% endfor %}

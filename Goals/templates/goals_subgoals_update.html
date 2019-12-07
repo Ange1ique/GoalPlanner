@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block title_block %}
+  GoalPlanner - Editing subgoals for the goal: {{ goals.goal_title }}
+{% endblock %}
+
+{% block body_block %}
+  <form id="editsubgoalsform" action="" method="post">
+    <div id="listofsubgoals">
+    {% csrf_token %}
+      <div class="jumbotron text-white bg-dark py-4 mb-1 mt-3">
+        <h1 class="display-4">Goal: {{ goals.goal_title }}</h1>
+        <p class="lead">Editing Subgoals and Activities
+          <span class="floatright1">
+            <a href="{% url 'goal_app:goals' %}" class="btn btn-secondary border border-white"><i class="fa fa-home mr-2"></i>Go back to all goals</a>
+            <button type="button" class="btn btn-blue-do border border-white js-save-goal" id="save_goal"><i class="fa fa-floppy-o mr-2"></i>Save</button>
+          </span></p>
+      </div>
+
+      {{ form.management_form }}
+      {{ form.non_field_errors }}
+
+      {% for hidden_field in form.hidden_fields %}
+        {{ hidden_field.errors }}
+        {{ hidden_field }}
+      {% endfor %}
+
+      {% for subgoal_form in form.forms %}
+
+        <div class="card m-3">
+          <div class="card-header alert-dark">
+            {% if subgoal_form.instance.id %}
+              {{ subgoal_form.subgoal_title.errors }}
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Subgoal:</span>
+                </div>
+                {% render_field subgoal_form.subgoal_title class="form-control" placeholder="..." %}
+                <div class="input-group-append">
+                  <button class="btn btn-secondary js-delete-subgoal" type="button" id="button-addon2" href="{% url 'goal_app:subgoal_delete' subgoal_form.instance.id %}"><i class="fa fa-trash mr-2"></i>Delete</button>
+                </div>
+              </div>
+            {% else %}
+              {{ subgoal_form.subgoal_title.errors }}
+              <div class="input-group" id="empty_subgoal">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">Subgoal:</span>
+                </div>
+                {% render_field subgoal_form.subgoal_title class="form-control" placeholder="..." %}
+                <div class="input-group-append">
+                  <button class="btn btn-blue-do js-save-goal" type="button" id="add_subgoal"><i class="fa fa-plus mr-2"></i>Add</button>
+                </div>
+              </div>
+            {% endif %}
+
+            {% for hidden_field in subgoal_form.hidden_fields %}
+              {{ hidden_field.errors }}
+              {{ hidden_field }}
+            {% endfor %}
+          </div>
+          <div class="card-body">
+
+          {% if subgoal_form.nested %}
+
+            {{ subgoal_form.nested.management_form }}
+            {{ subgoal_form.nested.non_form_errors }}
+
+            {% for activity_form in subgoal_form.nested.forms %}
+
+              {% if not activity_form.instance.id %}
+                <b>Add an activity:</b>
+              {% endif %}
+
+              {% if activity_form.instance.id %}
+                {{ activity_form.activity_title.errors }}
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Activity:</span>
+                  </div>
+                  {% render_field activity_form.activity_title class="form-control" %}
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-secondary js-delete-activity" type="button" id="button-addon2" href="{% url 'goal_app:activity_delete' activity_form.instance.id %}"><i class="fa fa-trash mr-2"></i>Delete</button>
+                  </div>
+                </div>
+              {% else %}
+                {{ activity_form.activity_title.errors }}
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">Activity:</span>
+                  </div>
+                  {% render_field activity_form.activity_title class="form-control" placeholder="..." %}
+                  <div class="input-group-append">
+                    <button class="btn btn-outline-blue-do js-save-goal" type="button" id="button-addon2"><i class="fa fa-plus mr-2"></i>Add</button>
+                  </div>
+                </div>
+              {% endif %}
+
+              {% for hidden_field in activity_form.hidden_fields %}
+                {{ hidden_field.errors }}
+                {{ hidden_field }}
+              {% endfor %}
+
+            {% endfor %}
+
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+      <div class="container">
+        <div class="row">
+          <div class="col">
+            <a href="{% url 'goal_app:goals' %}" class="btn btn-secondary btn-block border border-white"><i class="fa fa-home mr-2"></i>Go back to all goals</a>
+          </div>
+          <div class="col">
+            <button type="button" class="btn btn-blue-do btn-block border border-white js-save-goal" id="save_goal"><i class="fa fa-floppy-o mr-2"></i>Save</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </form>
+  <p></p>
+
+  <!-- THE MODAL FOR DELETING SUBGOALS -->
+  <div class="modal fade" id="modal-subgoal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+
+  <!-- THE MODAL FOR FEEDBACK ON SAVING -->
+  <div class="modal fade" id="modal-save-goal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header text-white bg-green-check">
+          <h5 class="modal-title">Feedback</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+            <p>Your goal <strong>{{ goals.goal_title }}</strong> has been succesfully saved!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE MODAL FOR FEEDBACK ON ERROR -->
+  <div class="modal fade" id="modal-error-goal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header text-white bg-danger">
+          <h5 class="modal-title">Feedback</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          </div>
+          <div class="modal-body">
+            <p>Please fill in a subgoal first.</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/subgoals.js' %}" type="text/javascript"></script>
+{% endblock %}

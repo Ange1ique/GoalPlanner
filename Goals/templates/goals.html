@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+{% load selectfilter %}
+
+{% block title_block %}
+  GoalPlanner - Goals
+{% endblock %}
+
+{% block body_block %}
+  <div class="jumbotron text-white bg-dark py-4 mb-1 mt-3">
+    <h1 class="display-4">Set and Track Goals</h1>
+    <p class="lead">Goals, Subgoals and Activities
+    <span class="floatright1"><button type="button" class="btn btn-blue-do border border-white js-create-goal" data-url="{% url 'goal_app:goal_create' %}">
+      <i class="fa fa-plus mr-2"></i>Add Goal
+    </button></span></p>
+  </div>
+
+  <div id="listofgoals">
+    {% include 'goal_list.html' %}
+  </div>
+
+  <!-- Button trigger modal for adding goal -->
+  <button type="button" class="btn btn-blue-do btn-block border border-white mb-4 js-create-goal" data-url="{% url 'goal_app:goal_create' %}">
+    <i class="fa fa-plus mr-2"></i>Add Goal
+  </button>
+  <p></p>
+
+  <!-- THE MODAL FOR ADDING, EDITING AND DELETING GOALS -->
+  <div class="modal fade" id="modal-goal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'js/goals.js' %}" type="text/javascript"></script>
+{% endblock %}

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+{% extends "base.html" %}
+{% load static %}
+
+{% block title_block %}
+  GoalPlanner - About
+{% endblock %}
+
+{% block body_block %}
+  <div class="jumbotron text-white bg-dark py-4 mb-1 mt-3">
+    <h1 class="display-4">Background</h1>
+    <p class="lead">About this web app</p>
+  </div>
+
+  <div class="jumbotron border bg-light py-4 m-3 mb-4">
+    <h3>Why a goal planner app?</h3>
+    <p>This year I had my first experience with MOOC (Massive Open Online Courses), which I am very enthusiastic about.
+      One of the things I liked, was the visualized progress.
+      Each time you finish a part, you can see the result of that part and also the overall progress.
+      This supported my motivation to continue with the next part.</p>
+    <p>During a course you are guided step by step to a certain goal.
+      However, after finishing a course, it doesn't really tell you what to do next. That's up to you 'of course'.
+      This made me want to use a tool to keep track of my overall development and to really commit to a written plan for my personal goal.
+      As my goal is to learn to program and because the best way to learn to program is probably to build something by yourself, I decided to develop my own tool.</p>
+    <br>
+    <h3>The making of this app</h3>
+    <p>Thinking about developing my own tool started with the course CS50 from Harvard.
+      The final project of this course is to develop your very own piece of software.
+      I used Django for this, because I had already started a Django Full Stack Web Developer Bootcamp.
+      This gave me a running start for the basics and from there on I encountered many nice challenges to tackle.
+      For example the use of inline formsets, AJAX and CSP headers.</p>
+    <p>This app has not yet all the functionalities that I've got in mind (the biggest one is that I would like to add a calendar function), but I decided it is good enough for the first deployment.
+      If you have any comments, tips or questions, I would love to hear them!
+      You can comment on GitHub, where you can find the repository of the GoalPlanner web app.</p>
+  </div>
+  {% endblock %}
+
+  {% block script %}
+    <script src="{% static 'js/index.js' %}" type="text/javascript"></script>
+  {% endblock %}
