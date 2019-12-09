@@ -9,7 +9,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['goalplannerapp.herokuapp.com','127.0.0.1']
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
