@@ -48,4 +48,4 @@ STATIC_URL = '/static/'
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
+COMPRESS_ENABLED = False

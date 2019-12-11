@@ -138,8 +138,6 @@ STATICFILES_FINDERS = (
     'sass_processor.finders.CssFinder',
 )
 
-COMPRESS_ENABLED = True
-
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
 )
