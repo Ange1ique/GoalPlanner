@@ -54,7 +54,7 @@ $(function () {
     $.ajax({
       headers: { "X-CSRFToken": csrftoken },
       type: 'POST',
-      url: 'goals/progress',
+      url: '/goals/progress/',
       data: data_send,
       dataType: 'json',
       success: function(){
