@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
 {% load compress %}
-{% load sass_tags %}
 {% load widget_tweaks %}
 <html lang="en">
   <head>
@@ -11,9 +10,8 @@
 
     <!-- CSS -->
     {% compress css %}
-        <link rel="stylesheet" href="{% static 'bootstrap/scss/bootstrap.scss' %}" type="text/x-scss" media="screen">
+        <link rel="stylesheet" href="{% static 'custom.scss' %}" type="text/x-scss" media="screen"/>
     {% endcompress %}
-    <link rel="stylesheet" href="{% sass_src 'scss/custom.scss' %}" type="text/css" />
     <link rel="stylesheet" href="{% static "css/goalstyle.css" %}">
     <link rel="shortcut icon" href="{% static 'images/favicon.png' %}" type="image/png"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"

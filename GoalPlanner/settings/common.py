@@ -27,7 +27,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'widget_tweaks',
     'compressor',
-    'sass_processor',
     'Goals',
 ]
 
@@ -135,7 +134,6 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     # other finders..
     'compressor.finders.CompressorFinder',
-    'sass_processor.finders.CssFinder',
 )
 
 COMPRESS_PRECOMPILERS = (
@@ -144,9 +142,12 @@ COMPRESS_PRECOMPILERS = (
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
+
+# The absolute path to the directory where collectstatic will collect static files for deployment.
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# The URL to use when referring to static files (where they will be served from)
 STATIC_URL = '/static/'
-COMPRESS_ROOT = '/static/'
-SASS_PROCESSOR_ROOT = '/static/'
 
 # Redirect to goals URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/goals'

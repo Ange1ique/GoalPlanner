@@ -29,7 +29,7 @@ ol, li {
 #page-container {
   min-height: 100vh;
   position: relative;
-  background-image: url("concrete2e.jpg");
+  background-image: url("../images/concrete2e.jpg");
   background-size: auto;
 }
 
