@@ -5,12 +5,12 @@ This is the first app that I've developed and it's of my own devising with the g
 * check off the activities
 * track the progress of the subgoals and the overall progress of the main goal(s)
 
+[You can find the deployed version on goalplannerapp.herokuapp.com](https://goalplannerapp.herokuapp.com/)
+
 With this app I'm also going to finish Harvard's [CS50](https://cs50.harvard.edu/) course, as this is my final project.
 
 ## Build with
-Miniconda, Atom, Python, Django, SQLite3, HTML, CSS, Sass, Bootstrap, JavaScript, AJAX and, among others, these packages:
-* [Django-widget-tweaks - Tweak the form field rendering in templates, not in python-level form definitions.](https://pypi.org/project/django-widget-tweaks/)
-* [Django-crum - Django middleware to capture current request and user.](https://pypi.org/project/django-crum/)
+Miniconda, Atom, Python, Django, SQLite3, HTML, CSS, Sass, Bootstrap, JavaScript and AJAX
 
 ## Personal main first time challenges
 * Inline formsets
@@ -40,7 +40,6 @@ Miniconda, Atom, Python, Django, SQLite3, HTML, CSS, Sass, Bootstrap, JavaScript
 * [Medium - Implementing Content Security Policy(CSP) in Django Site](https://medium.com/@brixlabs/implementing-content-security-policy-csp-in-django-site-a1df8f1c4f5d)
 * [Andrea Robertson - Django example: Setting up HTTP security](https://andrearobertson.com/2018/05/19/django-example-setting-up-http-security/)
 * [AccordBox - How to use SCSS/SASS in your Django project (Python Way)](https://www.accordbox.com/blog/how-use-scss-sass-your-django-project-python-way/)
-* [A Slacker’s Guide to Programming - Using Sass with Django](https://terencelucasyap.com/using-sass-django/)
 * [Mugo Web - How to customize Bootstrap 4 using Sass](https://www.mugo.ca/Blog/How-to-customize-Bootstrap-4-using-Sass)
 * [Martijn Cuppens - Responsive Font Sizes (RFS) in Bootstrap](https://css-tricks.com/using-a-mixin-to-take-the-math-out-of-responsive-font-sizes/)
 * [Sitepoint - Adding/Removing classes on resize JQuery](https://www.sitepoint.com/community/t/adding-removing-classes-on-resize-jquery/191805)
