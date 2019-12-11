@@ -19,6 +19,7 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"), ]
 # Application definition
 
 INSTALLED_APPS = [
+    'whitenoise.runserver_nostatic',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

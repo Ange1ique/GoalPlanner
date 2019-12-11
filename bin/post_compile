@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
 cd "$1" || exit 1
+
+python manage.py collectstatic --noinput
+
 echo "-----> Compressing/compiling static files"
 python manage.py compress --force
+
+python manage.py collectstatic --noinput
