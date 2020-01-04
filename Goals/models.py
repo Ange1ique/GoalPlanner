@@ -7,11 +7,14 @@ from crum import get_current_user
 # Create your models here.
 class Goals(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    goal_title = models.CharField(max_length=128, unique=True)
+    goal_title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
     progress = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(100)])
     start_date = models.DateField(default=datetime.date.today)
     end_date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["id"]
 
     def get_absolute_url(self):
         return reverse('goal_app:goals')
@@ -25,6 +28,9 @@ class SubGoals(models.Model):
     portion = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(100)])
     start_date = models.DateField(default=datetime.date.today)
     end_date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["id"]
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -41,6 +47,9 @@ class Activities(models.Model):
     portion = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(100)])
     start_date = models.DateField(default=datetime.date.today)
     end_date = models.DateField(blank=True, null=True)
+
+    class Meta:
+        ordering = ["id"]
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
